@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="my-4">
+<a href="{% url 'notes' %}" class="btn btn-primary">&leftarrow; Back to Notes Page </a>
+
+</div>
+<div class="container card text-center">
+
+        <h2 class="my-3">{{item_to_read.title}}</h2>
+
+
+        <p>{{item_to_read.body}}</p>
+</div>
+    
+      
+{% endblock body %}
+  

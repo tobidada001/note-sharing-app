@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block body %}
+    
+          <div class="container mt-0">
+            <h1 class="text-center">Add a new Note</h1>
+
+
+            
+          <div class="container-fluid card p-4">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row mb-3">
+                  <label for="diarytitle" class="col-sm-2 col-form-label">Title</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="title" class="form-control"  id="diarytitle">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="body" class="col-sm-2 col-form-label">Note</label>
+                  <div class="col-sm-10">
+                    <textarea name="body" class="form-control"  id="" rows="7"></textarea>
+                  </div>
+                </div>
+              
+               
+                <button type="submit" class="btn btn-dark ">Add note</button>
+              </form>
+    
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+ 
+{% endblock body %}
+    
