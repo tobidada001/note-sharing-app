@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load social_share %}
+{% block body %}
+
+<div class="my-1">
+<a href="{% url 'notes' %}" class="btn btn-primary">&leftarrow; Back to Notes Page </a>
+
+
+{% if request.user == item_to_read.owner %}
+<a href="{% url 'edit_note' item_to_read.owner.username item_to_read.slug %}" class="btn btn-outline-primary">&leftarrow; Edit Note </a>
+{% endif %}
+        
+</div>
+
+<div class="container d-flex">
+{% copy_to_clipboard item_to_read.get_absolute_url "Copy to clipboard!" %}
+        {% post_to_facebook item_to_read.get_absolute_url "Post to Facebook!" %}
+{% post_to_twitter "New note: {{item_to_read.title}}. Check it out!" item_to_read.get_absolute_url "Post to Twitter" %}
+{% post_to_whatsapp item_to_read.get_absolute_url "Share via WhatsApp" %}
+        {% post_to_gplus item_to_read.get_absolute_url "Post to Google+!" %}
+{% post_to_linkedin item_to_read.get_absolute_url %}
+{% send_email item_to_read.title "New note: {{item_to_read.title}}. Check it out!" item_to_read.get_absolute_url "Share via email" %}
+{% post_to_reddit "New note: {{item_to_read.title}}" item_to_read.get_absolute_url %}
+{% post_to_telegram "New note: {{item_to_read.title}}" item_to_read.get_absolute_url %}
+{% save_to_pinterest item_to_read.get_absolute_url %}
+</div>
+<div class="container card text-center my-5">
+
+        <h2 class="my-3">{{item_to_read.title}}</h2>
+
+
+        <p>{{item_to_read.body}}</p>
+</div>
+    
+      
+{% endblock body %}
+  

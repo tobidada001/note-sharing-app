@@ -94,11 +94,28 @@ def signout(request):
 
 @login_required(login_url='/login/')
 def view_note(request, username, slug):
-    item_to_read = get_object_or_404(Note, owner = username, slug = slug)
+    get_note_owner = get_object_or_404(get_user_model(), username = username)
+    item_to_read = get_object_or_404(Note, owner = get_note_owner, slug = slug)
     return render(request, 'readnote.html', {'item_to_read': item_to_read})
 
 
+
 @login_required(login_url='/login/')
-def edit_note(request, id):
-    item_to_read = get_object_or_404(Note, id=id, owner = request.user)
-    return render(request, 'editnote.html', {'item_to_read': item_to_read})
+def edit_note(request, username, slug):
+    get_note_owner = get_object_or_404(get_user_model(), username = username)
+    item_to_read = get_object_or_404(Note, owner = get_note_owner, slug = slug)
+
+    if request.method == 'POST':
+        if request.POST.get('title') and request.POST.get('body'):
+            item_to_read.title = request.POST['title']
+            item_to_read.body = request.POST['body']
+            
+            item_to_read.save()
+            messages.success(request, "Note updated successfully.")
+            return redirect('notes') 
+        else:
+            messages.warning(request, "Please, make sure there is content in title and body.")
+            return redirect(request.path)
+    
+
+    return render(request, 'editnote.html', {'note_to_edit': item_to_read})
