@@ -2,11 +2,6 @@
 
 {% block body %}
 
-
-{% for message in messages  %}
-  <div class="container py-4 bg-{{message.tags}}">{{message}}</div>  
-{% endfor %}
-    
     
           <div class="container-fluid card p-4">
         <form method="POST" action="{% url 'signin' %}">

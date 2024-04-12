@@ -69,7 +69,7 @@ def signin(request):
 
         if (uname and password ):
             if not get_user_model().objects.filter(username = uname).exists():
-                messages.error(request, "No user with this username")
+                messages.error(request, "No user with this username", extra_tags="danger")
                 return redirect('signin')
             else:
                 auth = authenticate(request=request, username= uname, password=password)
