@@ -31,7 +31,11 @@ INSTALLED_APPS = [
     'Note',
     'django_social_share',
 
+    'ckeditor'
+
 ]
+
+CKEDITOR_UPLOAD_PATH= 'media/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

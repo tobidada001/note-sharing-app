@@ -11,22 +11,19 @@
    <div class="col">
     <a href="{{note.get_absolute_url}}" class="text-decoration-none ">
         
-    <div class="card shadow-sm border-success mb-3 " >
-        <div class="card-header bg-transparent border-success text-dark"><small>Added: {{note.date_created}}</small></div>
+    <div class="card shadow-sm border-{% cycle 'success' 'warning' 'secondary' 'primary' 'danger' %} mb-3 " >
+        <div class="card-header bg-transparent border-{% cycle 'success' 'warning' 'secondary' 'primary' 'danger' %} text-dark"><small>Added: {{note.date_created}}</small></div>
        
-        <div class="card-body text-success">
+        <div class="card-body text-{% cycle 'success' 'warning' 'secondary' 'primary' 'danger' %}">
           <h6 class="card-title">{{note.title|truncatechars:"23"}}</h6>
-          <p class="card-text">{{note.body |truncatechars:"70"}}</p>
+          <p class="card-text">{{note.body |truncatechars:"70"|safe}}</p>
         </div>
-        <div class="card-footer bg-transparent border-success text-dark">
+        <div class="card-footer bg-transparent border-{% cycle 'success' 'warning' 'secondary' 'primary' 'danger' %} text-dark">
           <small>
           {% post_to_facebook note.get_absolute_url "Post to Facebook!" %}
 {% post_to_twitter "New note: {{note.title}}. Check it out!" note.get_absolute_url "Post to Twitter" %}
 
 {% post_to_whatsapp note.get_absolute_url "Share via WhatsApp" %}
-
-{% copy_to_clipboard note.get_absolute_url "Copy to clipboard!" %}
-
 
 </small>
         </div>
@@ -52,7 +49,6 @@
         </ul>
       </nav>
    
-      {% add_copy_script %}
       {% add_pinterest_script %} 
       
 {% endblock body %}

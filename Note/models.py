@@ -18,13 +18,18 @@ class Note(models.Model):
         return self.title
     
     def save(self, *args, **kwargs):
-        # this_note = Note.objects.filter(Q(slug = self.slug) & Q(owner = self.owner) ).exists()
+      
+        if self.slug:
+            pass
+        else:
+            myslug = slugify(self.title)
+            this_note = Note.objects.filter(Q(slug = myslug) & Q(owner = self.owner) ).exists()
+            while this_note:
+                myslug = myslug + "-1"
+                this_note = Note.objects.filter(Q(slug = myslug) & Q(owner = self.owner) ).exists()
 
-        # if not this_note:
-        #     self.slug = slugify(self.title)
+            self.slug = myslug
 
-        # if this_note:
-        #    self.slug = self.slug + "-1"
         super(Note, self).save(*args, **kwargs) 
     
     def get_absolute_url(self):
